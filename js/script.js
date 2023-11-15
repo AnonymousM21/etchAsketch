@@ -2,20 +2,33 @@ let pixelSize, squares, newWidthAndHeight;
 let color = "aqua";
 const container = document.querySelector(".container");
 const changeGrid = document.querySelector(".changeGrid");
-const clear = document.querySelector(".clear");
-const random = document.querySelector(".random");
-const rainbow = document.querySelector(".rainbow");
-const erase = document.querySelector(".erase");
+const settings = document.querySelector(".settings");
 
 container.style = "width: 256px; height: 256px";
 
 drawGrids();
 changeGrid.addEventListener("click", customGrid);
 container.addEventListener("mouseenter", paint);
-clear.addEventListener("click", clearGrids);
-random.addEventListener("click", randomColor);
-rainbow.addEventListener("click", () => (color = null));
-erase.addEventListener("click", () => (color = ""));
+settings.addEventListener("click", setting);
+
+function setting(evt) {
+  const targetChild = evt.target;
+
+  switch (targetChild.className) {
+    case "clear":
+      clearGrids();
+      break;
+    case "random":
+      randomColor();
+      break;
+    case "rainbow":
+      color = null;
+      break;
+    case "erase":
+      color = "";
+      break;
+  }
+}
 
 function drawGrids(noOfSquares = 16, widthAndHeight = 256 / noOfSquares) {
   pixelSize = widthAndHeight;
