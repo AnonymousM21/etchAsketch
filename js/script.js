@@ -1,7 +1,9 @@
 let pixelSize, squares, newWidthAndHeight;
+let color = "aqua";
 const container = document.querySelector(".container");
 const changeGrid = document.querySelector(".changeGrid");
 const clear = document.querySelector(".clear");
+const random = document.querySelector(".random");
 
 container.style = "width: 256px; height: 256px";
 
@@ -9,6 +11,7 @@ drawGrids();
 changeGrid.addEventListener("click", customGrid);
 container.addEventListener("mouseenter", paint);
 clear.addEventListener("click", clearGrids);
+random.addEventListener("click", randomColor);
 
 function drawGrids(noOfSquares = 16, widthAndHeight = 256 / noOfSquares) {
   pixelSize = widthAndHeight;
@@ -37,13 +40,20 @@ function paint() {
 
   pixels.forEach((pixel) => {
     pixel.addEventListener("mouseleave", () => {
-      pixel.style = `width: ${pixelSize}px; height: ${pixelSize}px; background-color: aqua;`;
+      pixel.style = `width: ${pixelSize}px; height: ${pixelSize}px; background-color: ${color};`;
     });
   });
 }
 
 function clearGrids() {
   container.textContent = "";
-  console.log(squares, newWidthAndHeight);
   drawGrids(squares, newWidthAndHeight);
+}
+
+function randomNo(num) {
+  return Math.floor(Math.random() * (num + 1));
+}
+
+function randomColor() {
+  color = `rgb(${randomNo(255)}, ${randomNo(255)}, ${randomNo(255)})`;
 }
