@@ -1,12 +1,14 @@
-let pixelSize;
+let pixelSize, squares, newWidthAndHeight;
 const container = document.querySelector(".container");
 const changeGrid = document.querySelector(".changeGrid");
+const clear = document.querySelector(".clear");
 
 container.style = "width: 256px; height: 256px";
 
 drawGrids();
 changeGrid.addEventListener("click", customGrid);
 container.addEventListener("mouseenter", paint);
+clear.addEventListener("click", clearGrids);
 
 function drawGrids(noOfSquares = 16, widthAndHeight = 256 / noOfSquares) {
   pixelSize = widthAndHeight;
@@ -21,8 +23,6 @@ function drawGrids(noOfSquares = 16, widthAndHeight = 256 / noOfSquares) {
 }
 
 function customGrid() {
-  let squares, newWidthAndHeight;
-
   do {
     squares = +prompt("Enter custom grid size between 1-100 inclusively.");
   } while (squares < 1 || squares > 100);
@@ -40,4 +40,10 @@ function paint() {
       pixel.style = `width: ${pixelSize}px; height: ${pixelSize}px; background-color: aqua;`;
     });
   });
+}
+
+function clearGrids() {
+  container.textContent = "";
+  console.log(squares, newWidthAndHeight);
+  drawGrids(squares, newWidthAndHeight);
 }
